@@ -30,12 +30,12 @@ The application exposes the following endpoints:
 
 ## Steps
 
-You can [deploy this application to IBM Cloud](https://cloud.ibm.com/developer/appservice/create-app?starterKit=402006ad-52b5-3cba-9029-c7d77ac2209a) or [build it locally](#building-locally) by cloning this repo first. Once your app is live, you can access the `/health` endpoint to build out your cloud native application.
+You can [deploy this application to IBM Cloud](https://cloud.ibm.com/developer/appservice/starter-kits/java-spring-app) or [build it locally](#building-locally) by cloning this repo first. Once your app is live, you can access the `/health` endpoint to build out your cloud native application.
 
 ### Deploying to IBM Cloud
 
 <p align="center">
-    <a href="https://cloud.ibm.com/developer/appservice/starter-kits/b598d129-679d-31e0-b4b2-363dacdfa419/java-spring-app">
+    <a href="https://cloud.ibm.com/developer/appservice/starter-kits/java-spring-app">
     <img src="https://cloud.ibm.com/devops/setup/deploy/button_x2.png" alt="Deploy to IBM Cloud">
     </a>
 </p>
