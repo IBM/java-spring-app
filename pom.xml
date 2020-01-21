@@ -58,6 +58,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.ibm.cloud</groupId>
+            <artifactId>ibm-cloud-spring-boot-service-bind</artifactId>
+            <version>1.1.2</version>
+        </dependency>
     </dependencies>
 
     <build>
