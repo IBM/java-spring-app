@@ -6,10 +6,12 @@ FROM ibmjava:8-sdk AS builder
 LABEL maintainer="IBM Java Engineering at IBM Cloud"
 
 WORKDIR /app
-COPY . /app
-
 RUN apt-get update && apt-get install -y maven
+
+COPY pom.xml .
 RUN mvn -N io.takari:maven:wrapper -Dmaven=3.5.0
+
+COPY . /app
 RUN ./mvnw install
 
 # Multi-stage build. New build stage that uses the UBI as the base image.
