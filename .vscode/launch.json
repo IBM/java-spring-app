@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SBApplication<javaspringapp>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "application.SBApplication",
+            "projectName": "javaspringapp",
+            "args": ""
+        }
+    ]
+}
