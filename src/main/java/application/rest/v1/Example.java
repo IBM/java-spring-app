@@ -21,7 +21,6 @@ public class Example {
 
     @GetMapping
     @Operation(summary = "Get status of application")
-
     @ApiResponses(
             value = {
                     @ApiResponse(
