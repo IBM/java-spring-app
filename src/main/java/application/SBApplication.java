@@ -10,10 +10,10 @@ import org.springdoc.core.GroupedOpenApi;
 public class SBApplication {
     @Bean
     public GroupedOpenApi actuatorOpenApi() {
-	    return GroupedOpenApi.builder()
-		    .group("api")
-		    .pathsToMatch("/health", "/v1")
-		    .build();
+        return GroupedOpenApi.builder()
+            .group("api")
+            .pathsToMatch("/health", "/v1")
+            .build();
     }
 
     public static void main(String[] args) {
