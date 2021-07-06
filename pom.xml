@@ -51,6 +51,13 @@
             <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>
 
+        <!-- Swagger -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.5.9</version>
+        </dependency>
+
         <!-- Distributed tracing with OpenTracing -->
         <dependency>
             <groupId>io.opentracing.contrib</groupId>
