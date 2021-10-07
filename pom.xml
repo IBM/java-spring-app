@@ -58,12 +58,12 @@
             <version>1.5.11</version>
         </dependency>
 
-        <!-- Distributed tracing with OpenTracing -->
-        <dependency>
+        <!-- Distributed tracing with OpenTracing (uncomment to enable) -->
+       <!--  <dependency>
             <groupId>io.opentracing.contrib</groupId>
             <artifactId>opentracing-spring-jaeger-web-starter</artifactId>
             <version>${opentracing-spring-jaeger-web-starter.version}</version>
-        </dependency>
+        </dependency> -->
 
         <!-- For this template -->
         <dependency>
