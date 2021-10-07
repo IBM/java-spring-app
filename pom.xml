@@ -20,7 +20,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.3</version>
+        <version>2.5.5</version>
     </parent>
 
     <dependencies>
@@ -55,15 +55,15 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.5.9</version>
+            <version>1.5.11</version>
         </dependency>
 
-        <!-- Distributed tracing with OpenTracing -->
-        <dependency>
+        <!-- Distributed tracing with OpenTracing (uncomment to enable) -->
+       <!--  <dependency>
             <groupId>io.opentracing.contrib</groupId>
             <artifactId>opentracing-spring-jaeger-web-starter</artifactId>
             <version>${opentracing-spring-jaeger-web-starter.version}</version>
-        </dependency>
+        </dependency> -->
 
         <!-- For this template -->
         <dependency>
