@@ -16,8 +16,8 @@
         <opentracing-spring-jaeger-web-starter.version>3.3.1</opentracing-spring-jaeger-web-starter.version>
         <app.name>javaspringapp</app.name>
 
-        <!-- Remove this once Spring boot updates to 2.16.0 or above-->
-        <log4j2.version>2.16.0</log4j2.version>
+        <!-- Remove this once Spring boot updates to 2.17.0 or above-->
+        <log4j2.version>2.17.0</log4j2.version>
     </properties>
 
     <parent>
