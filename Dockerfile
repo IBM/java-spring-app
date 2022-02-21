@@ -1,16 +1,9 @@
-# IBM Java SDK UBI is not available on public docker yet. Use regular
-# base as builder until this is ready. For reference:
-# https://github.com/ibmruntimes/ci.docker/tree/master/ibmjava/8/sdk/ubi-min
-
-FROM ibmjava:8-sdk AS builder
+FROM registry.access.redhat.com/ubi8/openjdk-17:1.11 AS builder
 LABEL maintainer="IBM Java Engineering at IBM Cloud"
 
 WORKDIR /app
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends maven=3.6.0-1~18.04.1
-
 COPY pom.xml .
-RUN mvn -N io.takari:maven:wrapper -Dmaven=3.5.0
+RUN mvn -N wrapper:wrapper -Dmaven=3.8.4
 
 COPY . /app
 RUN ./mvnw install
@@ -28,7 +21,7 @@ RUN if [ $bx_dev_user != "root" ]; then useradd -ms /bin/bash -u $bx_dev_userid 
 # Docker at the moment.
 # (https://github.com/ibmruntimes/ci.docker/tree/master/ibmjava/8/sfj/ubi-min)
 
-FROM adoptopenjdk/openjdk8:ubi-jre
+FROM registry.access.redhat.com/ubi8/openjdk-17:1.11
 
 # Copy over app from builder image into the runtime image.
 RUN mkdir /opt/app

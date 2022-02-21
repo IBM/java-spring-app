@@ -1,13 +1,9 @@
 # In the short term, we are using the OpenJDK for UBI. Long term, we will use
 # the IBM Java Small Footprint JVM (SFJ) for UBI, but that is not in public
 # Docker at the moment.
-FROM adoptopenjdk/openjdk8:ubi
+FROM registry.access.redhat.com/ubi8/openjdk-17:1.11
 
 LABEL maintainer="IBM Java Engineering at IBM Cloud"
-
-RUN yum -y install --disableplugin=subscription-manager maven \
-    && yum --disableplugin=subscription-manager clean all
-
 
 ARG bx_dev_user=root
 ARG bx_dev_userid=1000

@@ -10,14 +10,9 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
         <opentracing-spring-jaeger-web-starter.version>3.3.1</opentracing-spring-jaeger-web-starter.version>
         <app.name>javaspringapp</app.name>
-
-        <!-- Remove this once Spring boot updates to 2.17.0 or above-->
-        <log4j2.version>2.17.0</log4j2.version>
     </properties>
 
     <parent>
