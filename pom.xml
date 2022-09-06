@@ -57,6 +57,15 @@
             <version>${opentracing-spring-jaeger-web-starter.version}</version>
         </dependency> -->
 
+      <!-- REMOVE when org.springframework.boot:spring-boot-starter-parent picks
+           up org.yaml:snakeyaml >= 1.31.
+      -->
+      <dependency>
+        <groupId>org.yaml</groupId>
+        <artifactId>snakeyaml</artifactId>
+        <version>1.31</version>
+      </dependency>
+
         <!-- For this template -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
