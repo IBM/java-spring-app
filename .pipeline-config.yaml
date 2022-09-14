@@ -12,6 +12,21 @@ setup:
     if [[ "$(get_env pipeline_namespace)" == *"pr"* ||  "$(get_env pipeline_namespace)" == *"ci"* ]]; then
       source scripts/code_setup.sh
     fi
+    
+containerize:
+  dind: true
+  image: icr.io/continuous-delivery/pipeline/pipeline-base-ubi:3.7@sha256:0444aa3cc5032ba4d7f7a59a4177dd43dc1126ad902f09079b0a66156bbe4bcf
+  script: |
+    #!/usr/bin/env bash
+
+    if [[ "$PIPELINE_DEBUG" == 1 ]]; then
+      trap env EXIT
+      env
+      set -x
+    fi
+
+    source scripts/build_setup.sh
+    source scripts/build.sh
 
 test:
   abort_on_failure: false
@@ -39,21 +54,6 @@ test:
       --asset-type "repo" \
       --asset-key "app-repo"
     exit $exit_code
-
-containerize:
-  dind: true
-  image: icr.io/continuous-delivery/pipeline/pipeline-base-ubi:3.7@sha256:0444aa3cc5032ba4d7f7a59a4177dd43dc1126ad902f09079b0a66156bbe4bcf
-  script: |
-    #!/usr/bin/env bash
-
-    if [[ "$PIPELINE_DEBUG" == 1 ]]; then
-      trap env EXIT
-      env
-      set -x
-    fi
-
-    source scripts/build_setup.sh
-    source scripts/build.sh
 
 deploy:
   image: icr.io/continuous-delivery/pipeline/pipeline-base-image:2.19@sha256:482d28e51d5acc65471b366bbdcabc97f69e49da933337a7c42f45907cd63173
