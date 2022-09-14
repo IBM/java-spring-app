@@ -1,0 +1,110 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sample
+  labels:
+    app: node-compliance-app
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: sample
+  namespace: sample
+  labels:
+    app: node-compliance-app
+imagePullSecrets:
+  - name: node-compliance-secret
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: node-compliance-secret
+  namespace: sample
+  labels:
+    app: node-compliance-app  
+data:
+  .dockerconfigjson: secret
+type: kubernetes.io/dockerconfigjson
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-compliance-app
+  namespace: sample
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-compliance-app
+  template:
+    metadata:
+      labels:
+        app: node-compliance-app
+    spec:
+      serviceAccountName: sample
+      containers:
+      - name: node-compliance-app
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "1000m"
+        image: webapp:1
+        # for local development against minikube registry
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-service
+  namespace: sample
+  labels:
+    app: hello-service
+spec:
+  type: NodePort
+  ports:
+    # the port that this service should serve on
+    - port: 8080
+  # label keys and values that must match in order to receive traffic for this service
+  selector:
+    app: node-compliance-app
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-service-cip
+  namespace: sample
+  labels:
+    app: node-compliance-app
+spec:
+  type: ClusterIP
+  ports:
+    # the port that this service should serve on
+    - port: 80
+      targetPort: 8080
+  # label keys and values that must match in order to receive traffic for this service
+  selector:
+    app: node-compliance-app
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hello-service-cip-ingress
+  namespace: sample
+spec:
+  rules:
+  - host: hello-app.cluster-ingress-subdomain
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: hello-service-cip
+            port:
+              number: 8080
