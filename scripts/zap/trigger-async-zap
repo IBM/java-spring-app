@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+if [[ "$PIPELINE_DEBUG" == 1 ]]; then
+    trap env EXIT
+    env
+    set -x
+fi
+
+export URL
+URL=$(get_env app-url "")
+
+if [ -z  "${URL}"  ] || [[  "${URL}" = "http://null"  ]]; then
+	ZAP_EVIDENCE_TYPE="$(get_env zap_evidence_type "com.ibm.dynamic_scan")"
+	ZAP_STATUS_TYPE="failure"
+	source "${COMMONS_PATH}"/owasp-zap/report.sh
+
+	echo "Unable to get Application URL....."
+	echo "Please provide app-url as environment property. You can provide it through the pipeline UI as a parameter or set it during the pipeline run by running 'set_env app-url \$URL'"
+	exit 1
+fi
+
+export_env "app-url"
+
+source "${ONE_PIPELINE_PATH}"/tools/trigger-task
+
+#
+# save "target-application-server-url" using set_env
+# then mark it to export, so it will be synced 
+# to the "owasp-zap" task triggered async to a sub-pipeline
+#
+
+set_env "target-application-server-url" "$URL"
+export_env "target-application-server-url"
+
+export_env "opt-in-dynamic-api-scan"
+export_env "opt-in-dynamic-ui-scan"
+
+trigger-task "owasp-zap"

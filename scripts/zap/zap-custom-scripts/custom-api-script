@@ -1,0 +1,43 @@
+#!/bin/bash
+
+###############################################################################
+# Licensed Materials - Property of IBM
+# (c) Copyright IBM Corporation 2021. All Rights Reserved.
+#
+# Note to U.S. Government Users Restricted Rights:
+# Use, duplication or disclosure restricted by GSA ADP Schedule
+# Contract with IBM Corp.
+###############################################################################
+
+# DEFINITION_FILE represents the json definition as listed in swagger-definition-files 
+# json-refs is sensitive to the file extension. If you give it a .yaml file, it will output yaml. Use .json.
+# The file must be in the right dir to resolve relative schema refs in other files
+# API_DATA_FILE is the expected file location for the modified data that will be sent to the scan. 
+SWAGGER_DIR="$(dirname "${DEFINITION_FILE}")"
+SWAGGER_JSON_FILE="${SWAGGER_DIR}/_temp.json"
+cp "${DEFINITION_FILE}" "${SWAGGER_JSON_FILE}"
+
+# resolve any schema $refs to form a complete all-in-one swagger doc
+echo "Installing json-refs"
+npm install -g json-refs
+echo "Resolving schema refs in swagger"
+json-refs resolve "${SWAGGER_JSON_FILE}" > _resolved.json
+
+# Add a global exclusion to prevent a false positive issue with this sample application like:
+# Unexpected Content-Type was returned
+# A Content-Type of text/html was returned by the server.This is not one of the types expected to be returned by an API.
+# Raised by the 'Alert on Unexpected Content Types' script
+echo "Target application server url is: $TARGET_APPLICATION_SERVER_URL"
+APP_URL_REGEX=$(echo $TARGET_APPLICATION_SERVER_URL | sed 's:/*$::')
+app_url_regex="^${APP_URL_REGEX//\//\\\/}\$"
+
+jq --arg app_url_regex "${app_url_regex}" '{
+    "excludeScanTypes": [],
+    "apisToScan": [{"path":"/health", "method":"get"}],
+    "globalExcludeUrls": [ $app_url_regex ],
+    "apiDefinitionJson": .
+}' "$(pwd)/_resolved.json" > "${API_DATA_FILE}"
+
+# clean up
+rm "${SWAGGER_JSON_FILE}"
+rm _resolved.json

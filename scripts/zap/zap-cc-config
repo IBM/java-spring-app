@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+set_env "app-url" "$app_url"
+
+# repo_url is the optional parameter, assuming there is one unique repo in the invenotry
+repo_url=$(get_env repo-url "")
+if [[ -z $repo_url ]]; then
+  app_repo="repo-1"
+fi
+
+if [[ -n $repo_url ]]; then
+  while IFS= read -r repo; do
+    url=$(load_repo "${repo}" "url")
+    url=${repo_url%".git"}
+    if [[ "$repo_url" == "$url" ]]; then
+      app_repo="${repo}"
+    fi
+  done < <(list_repos)
+fi
+
+set_env "app_repo" "${app_repo}"
+export_env "app_repo"
+
+while IFS= read -r artifact; do
+  source=$(load_artifact "${artifact}" "source")
+  url=$(echo $source | awk -F '.git#' '{print $1}' | cut -d# -f1)
+  if [[ "$url" == "$(load_repo "${app_repo}" url)" ]]; then
+    set_env "zap-artifact" "${artifact}"
+    export_env "zap-artifact"
+  fi
+done < <(list_artifacts)
