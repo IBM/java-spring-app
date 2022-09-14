@@ -20,11 +20,11 @@ test:
     #!/usr/bin/env bash
 
     cd ../"$(load_repo app-repo path)"
-    npm ci
+    #npm ci
 
     # save exit code for old evidence collection
     exit_code=0
-    npm test || exit_code=$?
+    #npm test || exit_code=$?
     
     # save status for new evidence collection
     status="success"
@@ -76,11 +76,11 @@ acceptance-test:
     #!/usr/bin/env bash
 
     source /root/.nvm/nvm.sh
-    npm ci
+    #npm ci
     export APP_URL=$(get_env app-url)
     # save exit code for old evidence collection
     exit_code=0
-    npm run acceptance-test || exit_code=$?
+    #npm run acceptance-test || exit_code=$?
     
     # save status for new evidence collection
     status="success"
