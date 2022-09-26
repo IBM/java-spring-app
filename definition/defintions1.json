@@ -1,0 +1,35 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"version": "1.0.0",
+		"title": "Hello Compliance App",
+		"description": "Basic API for hello-compliance-app",
+		"license": {
+			"name": "Copyright 2014-2021 IBM",
+			"url": "https://github.com/open-toolchain/hello-compliance-app/blob/master/License.txt"
+		}
+	},
+	"basePath": "/",
+	"schemes": [
+		"http"
+	],
+	"consumes": [
+		"application/json"
+	],
+	"produces": [
+		"application/json",
+		"text/html"
+	],
+	"paths": {
+		"/health": {
+			"get": {
+				"summary": "Get Application Health",
+				"responses": {
+					"200": {
+						"description": "OK"
+					}
+				}
+			}
+		}
+	}
+}
