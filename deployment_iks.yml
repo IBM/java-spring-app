@@ -50,7 +50,7 @@ spec:
             memory: "64Mi"
             cpu: "250m"
           limits:
-            memory: "128Mi"
+            memory: "1024Mi"
             cpu: "1000m"
         image: webapp:1
         # for local development against minikube registry
