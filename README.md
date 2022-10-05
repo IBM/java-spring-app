@@ -37,7 +37,7 @@ You can [deploy this application to IBM Cloud](https://cloud.ibm.com/developer/a
 **Deprecated**: IBM® Cloud Foundry is deprecated. For more information, see [Deprecation of IBM Cloud Foundry](http://ibm.biz/ibmcf-announce).
 
 <p align="center">
-    <a href="https://cloud.ibm.com/developer/appservice/starter-kits/java-spring-app">
+    <a href="https://cloud.ibm.com/developer/appservice/create-app?starterKit=9798dc4d-25be-3b5f-b0b3-42a5f90fafbc">
     <img src="https://cloud.ibm.com/devops/setup/deploy/button_x2.png" alt="Deploy to IBM Cloud">
     </a>
 </p>
