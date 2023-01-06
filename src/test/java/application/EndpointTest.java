@@ -8,8 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -27,7 +28,7 @@ public class EndpointTest {
 	public void testEndpoint() throws Exception {
 		String endpoint = "http://localhost:" + port;
 		ResponseEntity<String> response = server.getForEntity(endpoint, String.class);
-		HttpStatus status = response.getStatusCode();
+		HttpStatusCode status = response.getStatusCode();
 		assertEquals(HttpStatus.OK, status, "Invalid response from server : " + response);
 	}
 }
